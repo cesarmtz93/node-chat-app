@@ -1,0 +1,4 @@
+node_modules
+.DS_Store
+server/config/config.json
+npm-debug.log
