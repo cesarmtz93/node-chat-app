@@ -9,6 +9,7 @@ const hbs = require("hbs");
 
 const publicPath = path.join(__dirname, "../public");
 const publicViewsPath = path.join(__dirname, "../public/views");
+const {generateMessage} = require("./../utils/message");
 
 // configuration ===============================================================
 var app = express();
@@ -20,24 +21,12 @@ io.on("connection", (socket) => {
         console.log("Client Disconnected");
     });
 
-    socket.emit("newMessage", {
-        from: "Admin", 
-        text: "Welcome to the chat app",
-        createdAt: new Date().getTime()
-    });
+    socket.emit("newMessage", generateMessage("Admin", "Welcome to the chat app"));
 
-    socket.broadcast.emit("newMessage", {
-        from: "Admin", 
-        text: "New User Joined",
-        createdAt: new Date().getTime()
-    });
+    socket.broadcast.emit("newMessage", generateMessage("Admin", "New User Joined"));
 
     socket.on("createMessage", (message) => {
-        socket.broadcast.emit("newMessage", {
-            from: message.from, 
-            text: message.text, 
-            createdAt: new Date().getTime()
-        });
+        socket.broadcast.emit("newMessage", generateMessage(message.from, message.text));
     });
 });
 
