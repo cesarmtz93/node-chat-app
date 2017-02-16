@@ -8,16 +8,7 @@
         <script src="/js/bootstrap.min.js"></script>
 
         <script src="/socket.io/socket.io.js"></script>
-        <script>
-            var socket = io();
-            socket.on("connect", () => {
-                console.log("Connected to server");
-            });
-
-            socket.on("disconnect", () => {
-                console.log("Disconnected from server");
-            });
-        </script>
+        <script src="/js/index.js"></script>
         <style>
             body { padding-top: 70px; }
         </style>

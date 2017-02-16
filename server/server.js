@@ -16,14 +16,20 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 io.on("connection", (socket) => {
-    console.log("New Client Connected");
-
     socket.on("disconnect", () => {
         console.log("Client Disconnected");
     });
+
+    socket.on("createMessage", (message) => {
+        console.log("createMessage: ", message);
+    });
+
+    socket.emit("newMessage", {
+        from: "mike@example.com", 
+        text: "hey what´sup?", 
+        createdAt: 123123
+    });
 });
-
-
 
 app.set("view engine", "hbs");
 app.use(express.static(publicPath));
@@ -44,8 +50,8 @@ server.listen(process.env.PORT, () => {
 // routes =======================================================================
 app.get("", (request, response) => {
     response.render(path.join(publicViewsPath, "/main.hbs"), {
-        pageTitle: "Welcome to my Website", 
-        pageParagraph: "I'm just an iOS Developer and fullstack web developer"
+        pageTitle: "WhatsChat", 
+        pageParagraph: "WhatsChat is new social network email app."
     });
 });
 // var todos = require("./routes/todos");
