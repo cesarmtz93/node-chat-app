@@ -33,7 +33,7 @@ socket.on("newMessage", function(message){
     li_html += "</li>";
 
     $("#messages").append(li_html);
-    // $("#user_name").append(message.from);
+    // $("#chats").append(div_html);
 });
 
 socket.on("newLocationMessage", function(message) {
@@ -45,7 +45,7 @@ socket.on("newLocationMessage", function(message) {
             li_html += "<div class=\"chat-body1 clearfix\">";
                 li_html += "<p><a target=\"_blank\" href=\""+message.url+"\"id=\"send-location\">";
                     li_html += "<i class=\"fa fa-location-arrow\" aria-hidden=\"true\"></i>";
-                    li_html += "Shared Location";
+                    li_html += " Shared Location";
                 li_html += "</a></p>";
                 li_html += "<div class=\"chat_time pull-right\">"+message.createdAtTime+"</div>";
             li_html += "</div>";
@@ -58,27 +58,41 @@ $(function() { //shorthand document.ready function
     $("#message-form").on("submit", function(e) {
         e.preventDefault();
 
-        socket.emit("createMessage", {
-            from: "User", 
-            text: $("#messageInput").val()
-        }, function() {
-            $('#messageInput').val("");
-        });
+        if($("#messageInput").val() !== "") {
+            $("#messageError").hide();
+            socket.emit("createMessage", {
+                from: "User", 
+                text: $("#messageInput").val()
+            }, function() {
+                $('#messageInput').val("");
+            });
+        } else{
+            $("#messageError").show();
+        }
     });
 
     var locationButton = $("#send-location");
     locationButton.on("click", function() {
+        locationButton.addClass('disabled');
+        
         if(!navigator.geolocation) {
             return $('#geolocationModal').modal('show'); 
-        }
+        }        
 
+        locationButton.text("Sending Location ... ");
         navigator.geolocation.getCurrentPosition(function(position) {
             socket.emit("createLocationMessage", {
                 latitude: position.coords.latitude, 
                 longitude: position.coords.longitude
             });
+            locationButton.removeClass('disabled');
+            locationButton.text("");
+            locationButton.append("<i class=\"fa fa-location-arrow\" aria-hidden=\"true\"></i> Share Location");
         }, function() {
             alert("Unable to fetch location.");
+            locationButton.removeClass('disabled');
+            locationButton.text("");
+            locationButton.append("<i class=\"fa fa-location-arrow\" aria-hidden=\"true\"></i> Share Location");
         });
     });
 });

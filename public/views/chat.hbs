@@ -2,9 +2,16 @@
 <link rel="stylesheet" href="/css/chat.css">
 {{> header}}
 <div class="main_section">
-    <div class="container">
+    <div class="">
         <div class="chat_container">
-            {{!--<div class="col-sm-3 chat_sidebar">
+            <div class="col-sm-3 chat_sidebar">
+                <div class="row">
+                    <div class="new_message_head">
+                        <div class="pull-left">
+                            <p>People</p>
+                        </div>
+                    </div><!--new_message_head-->
+                </div>
                 <div class="row">
                     <div class="member_list">
                         <ul class="list-unstyled">
@@ -18,9 +25,9 @@
                         </ul>
                     </div>
                 </div>
-            </div>--}}
+            </div>
             <!--chat_sidebar-->
-            <div class="col-sm-12 message_section">
+            <div class="col-sm-9 message_section">
                 <div class="row">
                     <div class="new_message_head">
                         <div class="pull-left">
@@ -34,12 +41,12 @@
                     </div><!--chat_area-->
                     <div class="message_write">
                         <form id="message-form">
-                            <textarea id="messageInput" class="form-control" placeholder="type a message"></textarea>
+                            <textarea id="messageInput" class="form-control" aria-describedby="messageError" placeholder="type a message" autofocus autocomplete="false"></textarea>
+                            <small id="messageError" hidden="hidden" class="form-text text-muted red">Type Message</small>
                             <div class="clearfix"></div>
                             <div class="chat_bottom">
                                 <a id="send-location" class="pull-left upload_btn">
-                                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                    Share Location
+                                    <i class="fa fa-location-arrow" aria-hidden="true"></i> Share Location
                                 </a>
                                 <button class="pull-right btn btn-success">SEND</button>
                             </div>

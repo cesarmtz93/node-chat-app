@@ -171,6 +171,11 @@
     /*text-decoration: none;*/
 }
 
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
 .chat_area .admin_chat .chat-body1 {
     margin-left: 0;
     margin-right: 50px;
