@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Some Website</title>
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
+        <!--CSS-->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/chat.css">
+
+        <!--JS-->
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/moment.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/index.js"></script>
+        <script src="https://use.fontawesome.com/45e03a14ce.js"></script>
+        <script src="/js/mustache.js"></script>
+    </head>
+    <body>  
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Brand</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Home</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="main_section">
+            <div class="chat_container">
+                <!--<div class="col-sm-3 chat_sidebar">
+                    <div class="row">
+                        <div class="new_message_head">
+                            <div class="pull-left">
+                                <p>People</p>
+                            </div>
+                        </div
+                    </div>
+                    <div class="row">
+                        <div class="member_list">
+                            <ul class="list-unstyled">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                    <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
+                                    </span>
+                                    <div id="chats" class="chat-body clearfix">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>-->
+                <!--chat_sidebar-->
+                <div class="col-sm-10 col-sm-offset-1 message_section">
+                    <div class="row">
+                        <div class="new_message_head">
+                            <div class="pull-left">
+                                <p id="user_name"></p>
+                            </div>
+                        </div><!--new_message_head-->
+                    
+                        <div class="chat_area">
+                            <ul id="messages" class="list-unstyled">
+                            </ul>
+                        </div><!--chat_area-->
+                        <div class="message_write">
+                            <form id="message-form">
+                                <textarea id="messageInput" class="form-control" aria-describedby="messageError" placeholder="type a message" autofocus autocomplete="false"></textarea>
+                                <small id="messageError" hidden="hidden" class="form-text text-muted red">Type Message</small>
+                                <div class="clearfix"></div>
+                                <div class="chat_bottom">
+                                    <a id="send-location" class="pull-left upload_btn">
+                                        <i class="fa fa-location-arrow" aria-hidden="true"></i> Share Location
+                                    </a>
+                                    <button class="pull-right btn btn-success">SEND</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!--message_section-->
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="geolocationModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Alert</h3>
+            </div>
+            <div class="modal-body">
+                <p>Geolocation not supported by the browser.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+
+        <!-- Template Message -->
+        <script type="text/template" id="message-template">
+            <li class="left clearfix">
+                <span class="chat-img1 pull-left">
+                    <strong class="primary-font">{{from}}</strong>                         
+                </span>
+                <div class="chat-body1 clearfix">
+                    <p>{{text}}</p>
+                    <div class="chat_time pull-right">{{createdAt}}</div>
+                </div>
+            </li>
+        </script>
+
+        <script type="text/template" id="location-message-template">
+            <li class="left clearfix">
+                <span class="chat-img1 pull-left">
+                    <strong class="primary-font">Admin</strong>
+                </span>
+                <div class="chat-body1 clearfix">
+                    <p><a target="_blank" href="{{url}}" id="send-location">
+                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                         Shared Location
+                    </a></p>
+                    <div class="chat_time pull-right">{{createdAt}}</div>
+                </div>
+            </li>
+        </script>
+
+        <footer>
+            <div class="container">
+                <p class="text-muted">Created by Cesar Martinez - Copyright {{getCurrentYear}}</p>
+            </div>
+        </footer>
+    </body>
+</html>
